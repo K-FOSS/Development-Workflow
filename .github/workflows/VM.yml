@@ -1,0 +1,34 @@
+name: VM Actions
+on:
+  push:
+
+jobs:
+  Build-NPM-Dev:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: KristianFJones/Publish-Docker-Github-Action@master
+        with:
+          dockerfile: VM/Docker/NPM-Dev/Dockerfile
+          name: docker.pkg.github.com/k-foss/development-workflow/npm-dev:latest
+          username: ${{ secrets.DOCKER_GITHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_GITHUB_PASSWORD }}
+          registry: docker.pkg.github.com
+          path: VM/Docker/NPM-Dev
+
+  Build-Git-Fetcher:
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - uses: actions/checkout@master
+      - name: Publish to Registry
+        uses: KristianFJones/Publish-Docker-Github-Action@master
+        with:
+          dockerfile: VM/Docker/Git-Fetcher/Dockerfile
+          name: docker.pkg.github.com/k-foss/development-workflow/git-fetcher:latest
+          username: ${{ secrets.DOCKER_GITHUB_USERNAME }}
+          password: ${{ secrets.DOCKER_GITHUB_PASSWORD }}
+          registry: docker.pkg.github.com
+          path: VM/Docker/Git-Fetcher
