@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:latest
+FROM mhart/alpine-node:12
 COPY entrypoint.sh /entrypoint.sh
 
 ENV PROJECT_DIR='/workdir'
